@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "rollup -c",
 		"type-check": "tsc --noEmit",
-		"dev": "rollup -c && docker-compose up --build nakama"
+		"dev": "rollup -c && docker compose up --build nakama"
 	},
 	"keywords": [
 		"nakama"
