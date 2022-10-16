@@ -1,0 +1,18 @@
+console:
+    max_message_size_bytes: 409600
+logger:
+    level: 'DEBUG'
+runtime:
+    js_entrypoint: 'build/index.js'
+    http_key: 'defaulthttpkey'
+    js_read_only_globals: false
+    js_min_count: 20
+    js_max_count: 50
+session:
+    token_expiry_sec: 172800
+    single_socket: true
+socket:
+    max_message_size_bytes: 409600
+    max_request_size_bytes: 409600
+    outgoing_queue_size: 40
+    read_timeout_ms: 30000
