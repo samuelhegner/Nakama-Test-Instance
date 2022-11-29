@@ -10,8 +10,9 @@ export class DbCache {
 		this.nk = nk;
 	}
 
-	public clearExpiredStorageObjects() {
-		this.pruneDB();
+	public clearExpiredStorageObjects(): number {
+		const deletions = this.pruneDB();
+		return deletions;
 	}
 
 	public setex(key: string, seconds: number, value: string) {
@@ -134,12 +135,13 @@ export class DbCache {
 		}
 	}
 
-	private pruneDB() {
+	private pruneDB(): number {
 		try {
 			const now = Date.now();
 			const query: string = `DELETE FROM	public."storage" WHERE collection = '${this.collection}' AND (value ->> 'ttl')::BIGINT < ${now}`;
 			const res = this.nk.sqlExec(query);
 			this.logger.debug('pruneDB: deleted entry count: ' + res.rowsAffected.toString());
+			return res.rowsAffected;
 		} catch (error) {
 			this.logger.error('pruneDB: An error has occurred: %s', error.message);
 			throw error;
